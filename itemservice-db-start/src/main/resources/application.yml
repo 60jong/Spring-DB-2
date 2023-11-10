@@ -7,12 +7,15 @@ spring:
     url: jdbc:mysql://localhost:3306/jdbc
     username: root
     password: 991911
+
 # MyBatis
 mybatis:
   type-aliases-package: hello.itemservice.domain
   configuration:
     map-underscore-to-camel-case: true
+
 logging:
   level:
+    org.hibernate.sql: trace
     hello.itemservice.repository.mybatis: trace
     org.springframework.jdbc: debug

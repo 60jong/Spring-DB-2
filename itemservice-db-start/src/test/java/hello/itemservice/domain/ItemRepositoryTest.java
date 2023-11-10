@@ -18,7 +18,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Transactional
+//@Transactional
 @SpringBootTest
 class ItemRepositoryTest {
 
@@ -27,23 +27,22 @@ class ItemRepositoryTest {
 
     TransactionStatus status;
 
-//    @BeforeEach
-//    void beforeEach() {
-//        status = transactionManager.getTransaction(new DefaultTransactionDefinition());
-//    }
-//
-//    @AfterEach
-//    void afterEach() {
-//        //MemoryItemRepository 의 경우 제한적으로 사용
-//        if (itemRepository instanceof MemoryItemRepository) {
-//            ((MemoryItemRepository) itemRepository).clearStore();
-//        }
-//
-//        transactionManager.rollback(status);
-//    }
+    @BeforeEach
+    void beforeEach() {
+        System.out.println(transactionManager.getClass());
+        status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+    }
+
+    @AfterEach
+    void afterEach() {
+        transactionManager.rollback(status);
+    }
 
     @Test
     void save() {
+        // @Respository는 1. 컴포넌트 스캔의 대상 2. 예외 추상화(spring 예외)를 위해 프록시 대상 의미 -> 찍어보면 프록시 찍힘
+        // @Transactional도 프록시 만듦
+        System.out.println(itemRepository.getClass());
         //given
         Item item = new Item("itemA", 10000, 10);
 
@@ -67,7 +66,8 @@ class ItemRepositoryTest {
         itemRepository.update(itemId, updateParam);
 
         //then
-        Item findItem = itemRepository.findById(itemId).get();
+        Item findItem = itemRepository.findById(itemId)
+                                      .get();
         assertThat(findItem.getItemName()).isEqualTo(updateParam.getItemName());
         assertThat(findItem.getPrice()).isEqualTo(updateParam.getPrice());
         assertThat(findItem.getQuantity()).isEqualTo(updateParam.getQuantity());

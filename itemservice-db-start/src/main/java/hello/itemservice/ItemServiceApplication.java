@@ -12,7 +12,10 @@ import org.springframework.context.annotation.Profile;
 //@Import(MemoryConfig.class)
 //@Import(JdbcTemplateV1Config.class)
 //@Import(JdbcTemplateV2Config.class)
-@Import(MyBatisConfig.class)
+//@Import(MyBatisConfig.class)
+//@Import(JpaConfig.class)
+@Import(SpringDataJpaConfig.class)
+//@Import(QueryDslConfig.class)
 @SpringBootApplication(scanBasePackages = "hello.itemservice.web")
 public class ItemServiceApplication {
 
