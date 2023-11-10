@@ -1,8 +1,7 @@
 package hello.itemservice.config;
 
 import hello.itemservice.repository.ItemRepository;
-import hello.itemservice.repository.JdbcItemRepositoryV1;
-import hello.itemservice.repository.memory.MemoryItemRepository;
+import hello.itemservice.repository.jdbctemplate.JdbcItemRepositoryV1;
 import hello.itemservice.service.ItemService;
 import hello.itemservice.service.ItemServiceV1;
 import org.springframework.context.annotation.Bean;

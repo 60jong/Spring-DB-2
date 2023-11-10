@@ -1,6 +1,9 @@
-package hello.itemservice.repository;
+package hello.itemservice.repository.jdbctemplate;
 
 import hello.itemservice.domain.Item;
+import hello.itemservice.repository.ItemRepository;
+import hello.itemservice.repository.ItemSearchCond;
+import hello.itemservice.repository.ItemUpdateDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
