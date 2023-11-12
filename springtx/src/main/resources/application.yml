@@ -4,6 +4,9 @@ spring:
     url: jdbc:mysql://localhost:3306/jdbc
     username: root
     password: 991911
+
+# logging
 logging:
   level:
+    org.hibernate.type.descriptor.sql: trace
     org.springframework.transaction.interceptor: trace
