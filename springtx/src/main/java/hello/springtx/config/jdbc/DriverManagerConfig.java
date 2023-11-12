@@ -1,8 +1,7 @@
-package hello.springtx.config;
+package hello.springtx.config.jdbc;
 
 import hello.springtx.repository.ItemRepository;
-import hello.springtx.repository.jdbc.ItemJdbcRepository;
-import hello.springtx.repository.memory.ItemMemoryRepository;
+import hello.springtx.repository.jdbc.ItemDriverManagerRepository;
 import hello.springtx.service.ItemService;
 import hello.springtx.service.ItemServiceV1;
 import lombok.extern.slf4j.Slf4j;
@@ -11,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @Configuration
-public class JdbcConfig {
+public class DriverManagerConfig {
 
     @Bean
     public ItemRepository itemRepository() {
-        log.info("ItemJdbcRepository Injected");
-        return new ItemJdbcRepository();
+        log.info("ItemDriverManagerRepository Injected");
+        return new ItemDriverManagerRepository();
     }
 
     @Bean

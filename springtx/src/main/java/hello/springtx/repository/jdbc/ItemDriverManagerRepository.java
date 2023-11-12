@@ -1,6 +1,8 @@
 package hello.springtx.repository.jdbc;
 
+import hello.springtx.config.jdbc.JdbcConnectionConst;
 import hello.springtx.domain.Item;
+import hello.springtx.exception.MyException;
 import hello.springtx.repository.ItemRepository;
 import hello.springtx.repository.ItemSearchCond;
 import hello.springtx.repository.ItemUpdateDto;
@@ -13,10 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static hello.springtx.config.jdbc.JdbcConnectionConst.*;
 import static org.springframework.jdbc.support.JdbcUtils.*;
 
 @Slf4j
-public class ItemJdbcRepository implements ItemRepository {
+public class ItemDriverManagerRepository implements ItemRepository {
 
     @Override
     public Item save(Item item) {
@@ -27,11 +30,15 @@ public class ItemJdbcRepository implements ItemRepository {
         PreparedStatement pstmt = null;
         try {
             con = getConnection();
+            setAutoCommit(con, false);
+
             pstmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, item.getItemName());
             pstmt.setInt(2, item.getPrice());
             pstmt.setInt(3, item.getQuantity());
             pstmt.executeUpdate();
+
+            con.commit();
 
             ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
@@ -39,8 +46,10 @@ public class ItemJdbcRepository implements ItemRepository {
             }
             return item;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            rollback(con);
+            throw new MyException(e);
         } finally {
+            setAutoCommit(con, true);
             closeResources(con, pstmt, null);
         }
     }
@@ -54,15 +63,21 @@ public class ItemJdbcRepository implements ItemRepository {
         PreparedStatement pstmt = null;
         try {
             con = getConnection();
+            setAutoCommit(con, false);
+
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, updateParam.getItemName());
             pstmt.setInt(2, updateParam.getPrice());
             pstmt.setInt(3, updateParam.getQuantity());
             pstmt.setLong(4, itemId);
             pstmt.executeUpdate();
+
+            con.commit();
         } catch (SQLException e) {
+            rollback(con);
             throw new RuntimeException(e);
         } finally {
+            setAutoCommit(con, true);
             closeResources(con, pstmt, null);
         }
     }
@@ -165,11 +180,23 @@ public class ItemJdbcRepository implements ItemRepository {
     }
 
     //== About Connection ==//
-    private Connection getConnection() {
+    private Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    }
+
+    private void setAutoCommit(Connection con, boolean flag) {
         try {
-            return DriverManager.getConnection(ConnectionConst.URL, ConnectionConst.USERNAME, ConnectionConst.PASSWORD);
+            con.setAutoCommit(flag);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new MyException(e);
+        }
+    }
+
+    private void rollback(Connection con) {
+        try {
+            con.rollback();
+        } catch (SQLException ex) {
+            throw new MyException(ex);
         }
     }
 
@@ -177,12 +204,6 @@ public class ItemJdbcRepository implements ItemRepository {
         closeResultSet(rs);
         closeStatement(st);
         closeConnection(con);
-    }
-
-    private static class ConnectionConst {
-        public static final String URL = "jdbc:mysql://localhost:3306/jdbc";
-        public static final String USERNAME = "root";
-        private static final String PASSWORD = "991911";
     }
 
     @AllArgsConstructor
