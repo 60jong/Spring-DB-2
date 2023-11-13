@@ -1,14 +1,22 @@
 package hello.springtx.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
 public class Item {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String itemName;
     private Integer price;
@@ -34,5 +42,19 @@ public class Item {
         this.itemName = itemName;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Item compare)) {
+            return false;
+        }
+
+        return this.id.equals(compare.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

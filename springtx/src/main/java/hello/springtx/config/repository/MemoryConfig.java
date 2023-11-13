@@ -1,4 +1,4 @@
-package hello.springtx.config;
+package hello.springtx.config.repository;
 
 import hello.springtx.repository.memory.ItemMemoryRepository;
 import hello.springtx.repository.ItemRepository;

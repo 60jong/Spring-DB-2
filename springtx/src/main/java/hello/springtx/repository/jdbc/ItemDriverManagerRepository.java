@@ -1,6 +1,5 @@
 package hello.springtx.repository.jdbc;
 
-import hello.springtx.config.jdbc.JdbcConnectionConst;
 import hello.springtx.domain.Item;
 import hello.springtx.exception.MyException;
 import hello.springtx.repository.ItemRepository;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static hello.springtx.config.jdbc.JdbcConnectionConst.*;
+import static hello.springtx.config.repository.jdbc.JdbcConnectionConst.*;
 import static org.springframework.jdbc.support.JdbcUtils.*;
 
 @Slf4j
@@ -23,6 +22,9 @@ public class ItemDriverManagerRepository implements ItemRepository {
 
     @Override
     public Item save(Item item) {
+        if (item.getItemName().equals("ex")) {
+            throw new MyException();
+        }
 
         String query = "insert into item(item_name, price, quantity) values (?, ?, ?);";
 

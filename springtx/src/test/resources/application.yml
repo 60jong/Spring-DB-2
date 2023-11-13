@@ -4,5 +4,4 @@ spring:
 
 logging:
   level:
-    org.springframework.jdbc: debug
-
+    org.springframework.transaction.interceptor: trace

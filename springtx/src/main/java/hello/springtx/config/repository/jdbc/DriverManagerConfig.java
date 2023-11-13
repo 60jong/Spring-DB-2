@@ -1,4 +1,4 @@
-package hello.springtx.config.jdbc;
+package hello.springtx.config.repository.jdbc;
 
 import hello.springtx.repository.ItemRepository;
 import hello.springtx.repository.jdbc.ItemDriverManagerRepository;

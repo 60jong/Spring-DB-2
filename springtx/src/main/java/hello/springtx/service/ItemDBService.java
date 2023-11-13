@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class ItemServiceV1 implements ItemService {
+public class ItemDBService implements ItemService {
 
     private final ItemRepository itemRepository;
 
