@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site._60jong.transaction.repository.item.ItemRepository;
-import site._60jong.transaction.repository.item.jpa.ItemJpaRepository;
+import site._60jong.transaction.repository.item.db.jpa.ItemJpaRepository;
 
 @Slf4j
 @Configuration

@@ -1,4 +1,4 @@
-package site._60jong.transaction.repository.item.jdbc;
+package site._60jong.transaction.repository.item.db.jdbc;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;

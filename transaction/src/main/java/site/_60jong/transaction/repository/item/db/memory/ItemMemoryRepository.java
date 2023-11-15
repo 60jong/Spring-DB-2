@@ -1,4 +1,4 @@
-package site._60jong.transaction.repository.item.memory;
+package site._60jong.transaction.repository.item.db.memory;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;

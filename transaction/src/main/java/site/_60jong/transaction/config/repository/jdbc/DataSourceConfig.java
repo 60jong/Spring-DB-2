@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import site._60jong.transaction.repository.item.ItemRepository;
-import site._60jong.transaction.repository.item.jdbc.ItemDataSourceRepository;
+import site._60jong.transaction.repository.item.db.jdbc.ItemDataSourceRepository;
 
 import javax.sql.DataSource;
 

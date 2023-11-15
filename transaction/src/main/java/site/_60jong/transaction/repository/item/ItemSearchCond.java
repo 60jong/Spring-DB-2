@@ -9,5 +9,8 @@ import lombok.*;
 public class ItemSearchCond {
 
     private String itemName;
+    private Integer minPrice;
     private Integer maxPrice;
+    private Integer minQuantity;
+    private Integer maxQuantity;
 }

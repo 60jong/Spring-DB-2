@@ -1,4 +1,4 @@
-package site._60jong.transaction.repository.item.jpa;
+package site._60jong.transaction.repository.item.db.jpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
