@@ -1,4 +1,4 @@
-package site._60jong.transaction.service;
+package site._60jong.transaction.service.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.PlatformTransactionManager;

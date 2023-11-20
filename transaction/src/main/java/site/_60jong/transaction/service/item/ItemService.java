@@ -1,4 +1,4 @@
-package site._60jong.transaction.service;
+package site._60jong.transaction.service.item;
 
 import site._60jong.transaction.domain.Item;
 import site._60jong.transaction.repository.item.ItemSearchCond;

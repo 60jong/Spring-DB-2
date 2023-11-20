@@ -5,6 +5,10 @@ public class MyException extends RuntimeException {
         super();
     }
 
+    public MyException(String message) {
+        super(message);
+    }
+
     public MyException(Throwable cause) {
         super(cause);
     }

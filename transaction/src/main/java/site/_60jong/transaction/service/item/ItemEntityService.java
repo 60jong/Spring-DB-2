@@ -1,4 +1,4 @@
-package site._60jong.transaction.service;
+package site._60jong.transaction.service.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,6 @@ import site._60jong.transaction.repository.item.ItemUpdateDto;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Service
 public class ItemEntityService implements ItemService {
 
     private final ItemRepository itemRepository;

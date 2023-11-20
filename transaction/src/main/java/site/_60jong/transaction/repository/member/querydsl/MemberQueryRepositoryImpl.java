@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 import site._60jong.transaction.domain.Member;
-import site._60jong.transaction.domain.QMember;
 import site._60jong.transaction.repository.member.MemberSearchCond;
 
 import java.util.List;

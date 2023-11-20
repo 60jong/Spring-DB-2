@@ -1,8 +1,10 @@
-package site._60jong.transaction.service;
+package site._60jong.transaction.service.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import site._60jong.transaction.domain.Item;
+import site._60jong.transaction.exception.MyException;
 import site._60jong.transaction.repository.item.ItemRepository;
 import site._60jong.transaction.repository.item.ItemSearchCond;
 import site._60jong.transaction.repository.item.ItemUpdateDto;
@@ -10,31 +12,34 @@ import site._60jong.transaction.repository.item.ItemUpdateDto;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
-public class ItemDBService implements ItemService {
+public class ItemEntityTxAopService implements ItemService {
 
     private final ItemRepository itemRepository;
 
+    @Transactional
     @Override
     public Item save(Item item) {
-        itemRepository.save(item);
-        return item;
+        return itemRepository.save(item);
     }
 
+    @Transactional
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam) {
-        itemRepository.update(itemId, updateParam);
+        findById(itemId).change(updateParam.getItemName(),
+                                updateParam.getPrice(),
+                                updateParam.getQuantity());
     }
 
     @Override
     public Item findById(Long id) {
         return itemRepository.findById(id)
-                             .orElseThrow();
+                             .orElseThrow(MyException::new);
     }
 
     @Override
     public List<Item> findItems(ItemSearchCond itemSearch) {
         return itemRepository.findAll(itemSearch);
     }
-
 }

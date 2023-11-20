@@ -11,17 +11,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Member {
+public class Log {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String message;
 
-    private int money;
-
-    public Member(String name) {
-        this.name = name;
-        this.money = 0;
+    public Log(String message) {
+        this.message = message;
     }
 }

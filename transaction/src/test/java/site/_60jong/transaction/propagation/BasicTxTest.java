@@ -17,6 +17,7 @@ import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
@@ -157,7 +158,7 @@ public class BasicTxTest {
         log.info("트랜잭션2 롤백 완료");
 
         log.info("트랜잭션1 커밋 시작");
-        assertThatThrownBy(() -> transactionManager.commit(ts1)).isInstanceOf(UnexpectedRollbackException.class);
+        assertDoesNotThrow(() -> transactionManager.commit(ts1));
         log.info("트랜잭션1 커밋 완료");
 
 

@@ -10,5 +10,9 @@ public interface MemberRepository extends MemberQueryRepository {
 
     Optional<Member> findById(Long id);
 
+    Optional<Member> findByName(String username);
+
     List<Member> findAll();
+
+    Member save(Member member);
 }

@@ -3,12 +3,12 @@ package site._60jong.transaction.repository.item.db.jdbc;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
-import site._60jong.transaction.config.repository.jdbc.JdbcConnectionConst;
 import site._60jong.transaction.domain.Item;
 import site._60jong.transaction.exception.MyException;
 import site._60jong.transaction.repository.item.ItemRepository;
 import site._60jong.transaction.repository.item.ItemSearchCond;
 import site._60jong.transaction.repository.item.ItemUpdateDto;
+import site._60jong.transaction.repository.item.db.JdbcConnectionConst;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.jdbc.support.JdbcUtils.*;
-import static site._60jong.transaction.config.repository.jdbc.JdbcConnectionConst.*;
+import static site._60jong.transaction.repository.item.db.JdbcConnectionConst.*;
 
 @Slf4j
 public class ItemDriverManagerRepository implements ItemRepository {

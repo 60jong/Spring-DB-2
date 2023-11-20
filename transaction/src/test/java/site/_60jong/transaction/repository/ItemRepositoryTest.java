@@ -1,11 +1,13 @@
 package site._60jong.transaction.repository;
 
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import site._60jong.transaction.domain.Item;
+import site._60jong.transaction.repository.item.ItemRangeSearchCond;
 import site._60jong.transaction.repository.item.ItemRepository;
 import site._60jong.transaction.repository.item.ItemSearchCond;
 import site._60jong.transaction.repository.item.ItemUpdateDto;
@@ -13,11 +15,13 @@ import site._60jong.transaction.repository.item.ItemUpdateDto;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @Transactional
 @SpringBootTest
 public class ItemRepositoryTest {
+
     @Autowired
     ItemRepository itemRepository;
 
@@ -71,20 +75,23 @@ public class ItemRepositoryTest {
         itemRepository.save(item2);
         itemRepository.save(item3);
 
+        System.out.println(itemRepository.findAll(new ItemSearchCond("item", 50000)).size());
         //둘 다 없음 검증
-        test(null, null, item1, item2, item3);
-        test("", null, item1, item2, item3);
+        assertAll(
+                () -> test(null, null, item1, item2, item3),
+                () -> test("", null, item1, item2, item3),
 
-        //itemName 검증
-        test("itemA", null, item1, item2);
-        test("temA", null, item1, item2);
-        test("itemB", null, item3);
+                //itemName 검증
+                () -> test("itemA", null, item1, item2),
+                () -> test("temA", null, item1, item2),
+                () -> test("itemB", null, item3),
 
-        //maxPrice 검증
-        test(null, 10000, item1);
+                //maxPrice 검증
+                () -> test(null, 10000, item1),
 
-        //둘 다 있음 검증
-        test("itemA", 10000, item1);
+                //둘 다 있음 검증
+                () -> test("itemA", 10000, item1)
+        );
     }
 
     void test(String itemName, Integer maxPrice, Item... items) {
